@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Zürich Dashboard</title>
+  <meta name="description" content="Dashboard en tiempo real para Zúrich: clima, trenes SBB y noticias de 20 Minuten." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="clock-ring" id="clock-ring">
+          <svg viewBox="0 0 44 44" class="clock-svg">
+            <circle cx="22" cy="22" r="19" class="clock-face" />
+            <line id="hour-hand" x1="22" y1="22" x2="22" y2="10" class="clock-hand hour" />
+            <line id="min-hand"  x1="22" y1="22" x2="22" y2="7"  class="clock-hand min" />
+            <circle cx="22" cy="22" r="2" class="clock-center" />
+          </svg>
+        </div>
+        <div class="header-text">
+          <span class="city-name">Zürich</span>
+          <span class="date-str" id="date-str"></span>
+        </div>
+      </div>
+      <div class="header-right">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Modo Claro/Oscuro">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>
+        <div class="live-badge">
+          <span class="live-dot"></span>LIVE
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== WEATHER SECTION ===== -->
+    <section class="card weather-card" id="weather-section">
+      <div class="weather-main">
+        <div class="weather-hero">
+          <div class="weather-icon-wrap">
+            <div class="weather-icon" id="wx-icon">⛅</div>
+          </div>
+          <div class="weather-temps">
+            <span class="temp-high" id="wx-high">—°</span>
+            <span class="temp-sep">↑</span>
+            <span class="temp-low" id="wx-low">—°</span>
+            <span class="temp-sep">↓</span>
+          </div>
+        </div>
+        <div class="weather-desc" id="wx-desc">Cargando clima...</div>
+        <div class="weather-wind" id="wx-wind">
+          <span>💨</span> <span id="wx-wind-val">— km/h</span>
+        </div>
+      </div>
+
+      <div class="weather-forecast" id="wx-forecast">
+        <!-- forecast cards injected by JS -->
+      </div>
+    </section>
+
+    <!-- ===== SBB TRANSPORT SECTION ===== -->
+    <section class="card transport-card" id="transport-section">
+      <div class="section-header">
+        <div class="section-icon clock-icon">
+          <svg viewBox="0 0 36 36" class="section-clock-svg">
+            <circle cx="18" cy="18" r="15" class="sclock-face" />
+            <line id="s-hour" x1="18" y1="18" x2="18" y2="9"  class="sclock-hand shour" />
+            <line id="s-min"  x1="18" y1="18" x2="18" y2="6"  class="sclock-hand smin" />
+            <circle cx="18" cy="18" r="1.5" class="sclock-center" />
+          </svg>
+        </div>
+        <div class="section-title-wrap">
+          <h2 class="section-title">Abfahrten</h2>
+          <span class="section-subtitle">Zürich HB</span>
+        </div>
+        <div class="transport-tabs">
+          <button class="tab-btn active" id="tab-dep" onclick="setTab('departures')">↑ Abf.</button>
+          <button class="tab-btn" id="tab-arr" onclick="setTab('arrivals')">↓ Ank.</button>
+        </div>
+      </div>
+
+      <div class="departures-list" id="departures-list">
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+      </div>
+
+      <div class="refresh-bar">
+        <span class="refresh-info" id="refresh-info">Aktualisierung in 60s</span>
+        <button class="refresh-btn" onclick="loadTransport()">↻</button>
+      </div>
+    </section>
+
+    <!-- ===== 20 MINUTEN NEWS SECTION ===== -->
+    <section class="card news-card" id="news-section">
+      <div class="section-header">
+        <div class="news-logo">
+          <span class="news-number">20</span>
+          <span class="news-word">Minuten</span>
+        </div>
+        <span class="news-tag">Zürich</span>
+      </div>
+
+      <div class="news-list" id="news-list">
+        <div class="skeleton-news"></div>
+        <div class="skeleton-news"></div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="app-footer">
+      <span>Dashboard Zürich • 2026</span>
+      <span id="last-update">—</span>
+    </footer>
+
+  </div><!-- /#app -->
+
+  <script src="app.js"></script>
+</body>
+</html>
