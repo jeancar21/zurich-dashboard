@@ -102,6 +102,12 @@ body {
   gap: 12px;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .clock-ring {
   width: 46px;
   height: 46px;
